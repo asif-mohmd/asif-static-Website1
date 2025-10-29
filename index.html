@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asif Muhammed | Portfolio</title>
   <style>
+    :root {
+      --bg-color: #f9f9f9;
+      --text-color: #1a1a1a;
+      --accent-color: #0077ff;
+      --card-bg: #ffffff;
+    }
+
+    body.dark {
+      --bg-color: #101820;
+      --text-color: #f5f5f5;
+      --accent-color: #00d4ff;
+      --card-bg: #1e2633;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,52 +27,43 @@
     }
 
     body {
-      background: linear-gradient(135deg, #101820, #1a1f2b);
-      color: #f5f5f5;
+      background: var(--bg-color);
+      color: var(--text-color);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem;
+      transition: background 0.3s, color 0.3s;
     }
 
     .card {
-      background: #1e2633;
+      background: var(--card-bg);
       border-radius: 20px;
       padding: 2rem;
       max-width: 800px;
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
     }
 
     h1 {
       font-size: 2rem;
-      color: #00aaff;
+      color: var(--accent-color);
       text-align: center;
       margin-bottom: 0.5rem;
     }
 
     h2 {
-      color: #ffb400;
+      color: var(--accent-color);
       margin-bottom: 0.5rem;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #ccc;
       padding-bottom: 5px;
     }
 
     p {
       line-height: 1.6;
       margin-bottom: 1rem;
-      color: #ccc;
-    }
-
-    .section {
-      margin-top: 1.5rem;
     }
 
     .skills {
@@ -68,11 +73,29 @@
     }
 
     .skill {
-      background: #2a3345;
+      background: rgba(0, 119, 255, 0.1);
       padding: 8px 14px;
       border-radius: 30px;
       font-size: 0.9rem;
-      color: #00d4ff;
+      border: 1px solid var(--accent-color);
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #005fcc;
     }
 
     .contact {
@@ -81,7 +104,7 @@
     }
 
     a {
-      color: #00d4ff;
+      color: var(--accent-color);
       text-decoration: none;
     }
 
@@ -91,48 +114,49 @@
   </style>
 </head>
 <body>
+  <button class="toggle-btn" id="toggleTheme">🌙 Dark Mode</button>
   <div class="card">
     <h1>Asif Muhammed</h1>
-    <p style="text-align:center; font-size:1rem; color:#bbb;">
-      Full Stack Developer | React | Node.js | MongoDB
-    </p>
+    <p style="text-align:center; font-size:1rem;">Full Stack Developer | React | Node.js | MongoDB</p>
 
     <div class="section">
       <h2>About Me</h2>
       <p>
-        I'm a passionate and detail-oriented developer with a love for building
-        fast, responsive, and visually appealing web applications. My goal is to
-        create solutions that make life easier and more enjoyable through clean
-        code and great design.
+        I'm a passionate and detail-oriented developer who loves building
+        responsive and dynamic web apps. My goal is to create digital
+        experiences that combine functionality and aesthetics.
       </p>
     </div>
 
     <div class="section">
       <h2>Skills</h2>
       <div class="skills">
-        <span class="skill">JavaScript</span>
         <span class="skill">React.js</span>
         <span class="skill">Node.js</span>
         <span class="skill">MongoDB</span>
         <span class="skill">Express.js</span>
-        <span class="skill">HTML5</span>
-        <span class="skill">CSS3</span>
+        <span class="skill">JavaScript</span>
         <span class="skill">Git</span>
       </div>
-    </div>
-
-    <div class="section">
-      <h2>Projects</h2>
-      <p><strong>Attendance System:</strong> A face recognition-based attendance platform with Node.js backend and React frontend.</p>
-      <p><strong>E-commerce Dashboard:</strong> A product management dashboard using MERN stack with advanced filtering and analytics.</p>
     </div>
 
     <div class="section contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:asifmuhammed@example.com">asifmuhammed@example.com</a></p>
-      <p>LinkedIn: <a href="#">linkedin.com/in/asifmuhammed</a></p>
       <p>GitHub: <a href="#">github.com/asifmuhammed</a></p>
     </div>
   </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleTheme");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      if (document.body.classList.contains("dark")) {
+        toggleBtn.textContent = "☀️ Light Mode";
+      } else {
+        toggleBtn.textContent = "🌙 Dark Mode";
+      }
+    });
+  </script>
 </body>
 </html>
