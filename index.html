@@ -3,21 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asif Muhammed | Portfolio</title>
+  <title>Asif Muhammed | 3D Portfolio</title>
   <style>
     :root {
-      --bg-color: #f9f9f9;
-      --text-color: #1a1a1a;
-      --accent-color: #0077ff;
-      --card-bg: #ffffff;
-      --glow: rgba(0, 119, 255, 0.4);
-    }
-
-    body.dark {
       --bg-color: #0a0f1f;
       --text-color: #f5f5f5;
       --accent-color: #00d4ff;
-      --card-bg: #131b2b;
+      --card-bg: rgba(20, 30, 50, 0.9);
       --glow: rgba(0, 212, 255, 0.3);
     }
 
@@ -29,36 +21,77 @@
     }
 
     body {
-      background: radial-gradient(circle at top left, var(--bg-color), #000);
-      color: var(--text-color);
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      overflow-x: hidden;
-      transition: background 0.4s ease, color 0.4s ease;
+      background: radial-gradient(circle at top left, #001220, #000814);
+      color: var(--text-color);
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    /* Background glowing spheres */
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .sphere {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, var(--accent-color), transparent);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: float 10s infinite alternate ease-in-out;
+    }
+
+    .sphere:nth-child(1) {
+      top: 10%;
+      left: 15%;
+      animation-delay: 0s;
+    }
+    .sphere:nth-child(2) {
+      bottom: 20%;
+      right: 10%;
+      animation-delay: 2s;
+      background: radial-gradient(circle, #ff00c8, transparent);
+    }
+    .sphere:nth-child(3) {
+      bottom: 5%;
+      left: 30%;
+      animation-delay: 4s;
+      background: radial-gradient(circle, #00ff9d, transparent);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-50px) scale(1.2); }
     }
 
     .card {
+      position: relative;
       background: var(--card-bg);
       border-radius: 25px;
       padding: 2.5rem;
       max-width: 850px;
       width: 100%;
-      box-shadow: 0 0 25px var(--glow);
-      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-      animation: fadeIn 1.2s ease-in-out;
+      box-shadow: 0 0 40px var(--glow);
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      z-index: 10;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 40px var(--glow);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      transform: rotateY(10deg) rotateX(5deg) scale(1.02);
+      box-shadow: 0 0 60px var(--glow);
     }
 
     h1 {
@@ -66,6 +99,8 @@
       color: var(--accent-color);
       text-align: center;
       margin-bottom: 0.5rem;
+      text-shadow: 0 0 15px var(--glow);
+      transform: translateZ(50px);
     }
 
     h2 {
@@ -74,18 +109,15 @@
       border-bottom: 2px solid var(--accent-color);
       display: inline-block;
       padding-bottom: 4px;
-      text-shadow: 0 0 5px var(--glow);
+      text-shadow: 0 0 10px var(--glow);
+      transform: translateZ(25px);
     }
 
     p {
       line-height: 1.8;
       margin-bottom: 1rem;
-      color: var(--text-color);
       opacity: 0.9;
-    }
-
-    .section {
-      margin-top: 2rem;
+      transform: translateZ(20px);
     }
 
     .skills {
@@ -102,13 +134,14 @@
       border-radius: 25px;
       font-size: 0.9rem;
       font-weight: 500;
-      box-shadow: 0 4px 15px var(--glow);
+      box-shadow: 0 0 20px var(--glow);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform: translateZ(15px);
     }
 
     .skill:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 0 25px var(--glow);
+      transform: translateZ(30px) scale(1.1);
+      box-shadow: 0 0 30px var(--glow);
     }
 
     .toggle-btn {
@@ -122,12 +155,12 @@
       color: #fff;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-      box-shadow: 0 4px 15px var(--glow);
+      transition: transform 0.2s;
+      box-shadow: 0 0 20px var(--glow);
+      z-index: 20;
     }
 
     .toggle-btn:hover {
-      background: #005fcc;
       transform: scale(1.05);
     }
 
@@ -139,38 +172,35 @@
     a {
       color: var(--accent-color);
       text-decoration: none;
-      transition: color 0.3s ease;
     }
 
     a:hover {
-      color: #ffb400;
+      text-decoration: underline;
     }
 
     footer {
       margin-top: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      opacity: 0.7;
+      opacity: 0.8;
+      transform: translateZ(10px);
     }
 
     @media (max-width: 768px) {
       .card {
         padding: 1.5rem;
       }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .toggle-btn {
-        top: 10px;
-        right: 10px;
-        padding: 8px 16px;
-      }
+      h1 { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
+  <div class="background">
+    <div class="sphere"></div>
+    <div class="sphere"></div>
+    <div class="sphere"></div>
+  </div>
+
   <button class="toggle-btn" id="toggleTheme">🌙 Dark Mode</button>
   <div class="card">
     <h1>Asif Muhammed</h1>
@@ -179,8 +209,8 @@
     <div class="section">
       <h2>About Me</h2>
       <p>
-        I’m a passionate developer who loves crafting beautiful, responsive, and high-performance web applications.
-        I focus on writing clean, maintainable code and creating intuitive user experiences that blend function and design.
+        I’m a developer passionate about crafting beautiful and performant digital experiences.
+        I blend creativity and code to bring interactive, modern UIs to life.
       </p>
     </div>
 
@@ -198,12 +228,6 @@
       </div>
     </div>
 
-    <div class="section">
-      <h2>Projects</h2>
-      <p><strong>Attendance System:</strong> Face recognition–based attendance tracker built with MERN stack and OpenCV integration.</p>
-      <p><strong>E-commerce Dashboard:</strong> Full-featured product management dashboard with filtering, analytics, and order tracking.</p>
-    </div>
-
     <div class="section contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:asifmuhammed@example.com">asifmuhammed@example.com</a></p>
@@ -211,17 +235,25 @@
       <p>LinkedIn: <a href="#">linkedin.com/in/asifmuhammed</a></p>
     </div>
 
-    <footer>© 2025 Asif Muhammed. Crafted with 💙 using HTML & CSS.</footer>
+    <footer>© 2025 Asif Muhammed. Crafted with 💙 in 3D CSS.</footer>
   </div>
 
   <script>
     const toggleBtn = document.getElementById("toggleTheme");
     toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      if (document.body.classList.contains("dark")) {
-        toggleBtn.textContent = "☀️ Light Mode";
-      } else {
+      document.body.classList.toggle("light");
+      if (document.body.classList.contains("light")) {
+        document.documentElement.style.setProperty("--bg-color", "#f9f9f9");
+        document.documentElement.style.setProperty("--text-color", "#111");
+        document.documentElement.style.setProperty("--accent-color", "#0077ff");
+        document.documentElement.style.setProperty("--card-bg", "white");
         toggleBtn.textContent = "🌙 Dark Mode";
+      } else {
+        document.documentElement.style.setProperty("--bg-color", "#0a0f1f");
+        document.documentElement.style.setProperty("--text-color", "#f5f5f5");
+        document.documentElement.style.setProperty("--accent-color", "#00d4ff");
+        document.documentElement.style.setProperty("--card-bg", "rgba(20, 30, 50, 0.9)");
+        toggleBtn.textContent = "☀️ Light Mode";
       }
     });
   </script>
