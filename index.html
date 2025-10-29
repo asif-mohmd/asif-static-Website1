@@ -10,13 +10,15 @@
       --text-color: #1a1a1a;
       --accent-color: #0077ff;
       --card-bg: #ffffff;
+      --glow: rgba(0, 119, 255, 0.4);
     }
 
     body.dark {
-      --bg-color: #101820;
+      --bg-color: #0a0f1f;
       --text-color: #f5f5f5;
       --accent-color: #00d4ff;
-      --card-bg: #1e2633;
+      --card-bg: #131b2b;
+      --glow: rgba(0, 212, 255, 0.3);
     }
 
     * {
@@ -27,28 +29,40 @@
     }
 
     body {
-      background: var(--bg-color);
+      background: radial-gradient(circle at top left, var(--bg-color), #000);
       color: var(--text-color);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
     }
 
     .card {
       background: var(--card-bg);
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 800px;
+      border-radius: 25px;
+      padding: 2.5rem;
+      max-width: 850px;
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s ease;
+      box-shadow: 0 0 25px var(--glow);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px var(--glow);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: var(--accent-color);
       text-align: center;
       margin-bottom: 0.5rem;
@@ -56,60 +70,103 @@
 
     h2 {
       color: var(--accent-color);
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 5px;
+      margin-bottom: 0.75rem;
+      border-bottom: 2px solid var(--accent-color);
+      display: inline-block;
+      padding-bottom: 4px;
+      text-shadow: 0 0 5px var(--glow);
     }
 
     p {
-      line-height: 1.6;
+      line-height: 1.8;
       margin-bottom: 1rem;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    .section {
+      margin-top: 2rem;
     }
 
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
+      margin-top: 1rem;
     }
 
     .skill {
-      background: rgba(0, 119, 255, 0.1);
-      padding: 8px 14px;
-      border-radius: 30px;
+      background: linear-gradient(135deg, var(--accent-color), #0095ff);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 25px;
       font-size: 0.9rem;
-      border: 1px solid var(--accent-color);
+      font-weight: 500;
+      box-shadow: 0 4px 15px var(--glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 25px var(--glow);
     }
 
     .toggle-btn {
       position: absolute;
       top: 20px;
       right: 20px;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 20px;
+      border-radius: 30px;
       background: var(--accent-color);
       color: #fff;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 4px 15px var(--glow);
     }
 
     .toggle-btn:hover {
       background: #005fcc;
+      transform: scale(1.05);
     }
 
     .contact {
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
 
     a {
       color: var(--accent-color);
       text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     a:hover {
-      text-decoration: underline;
+      color: #ffb400;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .toggle-btn {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
@@ -117,14 +174,13 @@
   <button class="toggle-btn" id="toggleTheme">🌙 Dark Mode</button>
   <div class="card">
     <h1>Asif Muhammed</h1>
-    <p style="text-align:center; font-size:1rem;">Full Stack Developer | React | Node.js | MongoDB</p>
+    <p style="text-align:center; font-size:1.1rem;">Full Stack Developer | React | Node.js | MongoDB</p>
 
     <div class="section">
       <h2>About Me</h2>
       <p>
-        I'm a passionate and detail-oriented developer who loves building
-        responsive and dynamic web apps. My goal is to create digital
-        experiences that combine functionality and aesthetics.
+        I’m a passionate developer who loves crafting beautiful, responsive, and high-performance web applications.
+        I focus on writing clean, maintainable code and creating intuitive user experiences that blend function and design.
       </p>
     </div>
 
@@ -135,16 +191,27 @@
         <span class="skill">Node.js</span>
         <span class="skill">MongoDB</span>
         <span class="skill">Express.js</span>
-        <span class="skill">JavaScript</span>
+        <span class="skill">JavaScript (ES6+)</span>
+        <span class="skill">HTML5</span>
+        <span class="skill">CSS3</span>
         <span class="skill">Git</span>
       </div>
+    </div>
+
+    <div class="section">
+      <h2>Projects</h2>
+      <p><strong>Attendance System:</strong> Face recognition–based attendance tracker built with MERN stack and OpenCV integration.</p>
+      <p><strong>E-commerce Dashboard:</strong> Full-featured product management dashboard with filtering, analytics, and order tracking.</p>
     </div>
 
     <div class="section contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:asifmuhammed@example.com">asifmuhammed@example.com</a></p>
       <p>GitHub: <a href="#">github.com/asifmuhammed</a></p>
+      <p>LinkedIn: <a href="#">linkedin.com/in/asifmuhammed</a></p>
     </div>
+
+    <footer>© 2025 Asif Muhammed. Crafted with 💙 using HTML & CSS.</footer>
   </div>
 
   <script>
